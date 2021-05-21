@@ -2,11 +2,12 @@
 
 namespace App\Library\Notification\Requests;
 
-class TelegramFile
+use App\Library\Notification\Constants\TelegramAttachmentType;
+
+class TelegramAttachment
 {
     private $name = "";
     private $extension = "";
-    private $type = "";
     private $file = "";
 
     /**
@@ -47,18 +48,20 @@ class TelegramFile
     public function getType(): string
     {
         switch ($this->extension) {
+            case "mp4":
+                return TelegramAttachmentType::VIDEO;
             case "mp3":
-                return "audio";
+                return TelegramAttachmentType::AUDIO;
             case "ogg":
-                return "voice";
+                return TelegramAttachmentType::VOICE;
             case "png":
             case "jpg":
             case "jpeg":
-                return "photo";
+                return TelegramAttachmentType::PHOTO;
             case "gif":
-                return "animation";
+                return TelegramAttachmentType::ANIMATION;
             default:
-                return "document";
+                return TelegramAttachmentType::DOCUMENT;
         }
     }
 

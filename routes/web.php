@@ -14,15 +14,11 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return "Notification Service v1.0.0";
 });
 
-$router->group(['middleware' => 'auth'], function () use ($router) {
-    $router->get('/test', function () {
-        return "Hi";
-    });
-    $router->post('/test2', function () {
-        return "Hi";
-    });
+$router->group(['middleware' => 'auth','prefix' => 'send'], function () use ($router) {
+    $router->addRoute(['GET','POST'],'/telegram','TelegramController@send');
+    $router->addRoute(['GET','POST'],'/discord','DiscordController@send');
 });
 

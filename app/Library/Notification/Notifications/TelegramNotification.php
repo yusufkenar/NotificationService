@@ -2,6 +2,7 @@
 
 namespace App\Library\Notification\Notifications;
 
+use App\Library\Notification\Constants\TelegramAttachmentType;
 use App\Library\Notification\Requests\TelegramRequest;
 use Illuminate\Bus\Queueable;
 use NotificationChannels\Telegram\TelegramChannel;
@@ -12,8 +13,6 @@ use Illuminate\Notifications\Notification;
 
 class TelegramNotification extends Notification
 {
-    use Queueable;
-
     /**
      * @var TelegramRequest
      */
@@ -56,19 +55,29 @@ class TelegramNotification extends Notification
                 ->longitude($this->request->getLong());
         }
 
-        if (true === $this->request->isPhoto()) {
-            return $telegramFile->file($this->request->getDocument()->getUrl(),
-                $this->request->getDocument()->getName());
+        if (true === $this->request->hasAttachment()) {
+            switch ($this->request->getAttachment()->getType()) {
+                case TelegramAttachmentType::PHOTO:
+                    return $telegramFile->photo($this->request->getAttachment()->getFile());
+                case TelegramAttachmentType::VIDEO:
+                    return $telegramFile->video($this->request->getAttachment()->getFile());
+                case TelegramAttachmentType::ANIMATION:
+                    return $telegramFile->animation($this->request->getAttachment()->getFile());
+                case TelegramAttachmentType::AUDIO:
+                    return $telegramFile->audio($this->request->getAttachment()->getFile());
+                case TelegramAttachmentType::VOICE:
+                    return $telegramFile->voice($this->request->getAttachment()->getFile());
+                default:
+                    return $telegramFile->document($this->request->getAttachment()->getFile(), $this->request->getAttachment()->getName());
+            }
         }
 
-        if (true === $this->request->isVideo()) {
-            return $telegramFile->file($this->request->getDocument()->getUrl(),
-                $this->request->getDocument()->getName());
+        if (true === $this->request->hasButton() && $this->request->getButtons()) {
+            foreach ($this->request->getButtons() as $button) {
+                $telegramMessage->button($button->getText(), $button->getUrl());
+            }
         }
 
-        return TelegramMessage::create()
-            ->to($this->data->to)
-            ->options(['parse_mode' => 'html'])
-            ->content($this->data->content);
+        return $telegramMessage;
     }
 }

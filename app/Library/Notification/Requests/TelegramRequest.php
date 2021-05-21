@@ -7,7 +7,7 @@ class TelegramRequest
     /**
      * @var null|string
      */
-    private $to = null;
+    private $to = "";
 
     /**
      * @var bool
@@ -17,7 +17,7 @@ class TelegramRequest
     /**
      * @var null|string
      */
-    private $content = null;
+    private $content = "";
 
     /**
      * @var bool
@@ -37,42 +37,11 @@ class TelegramRequest
     /**
      * @var bool
      */
-    private $isVideo = false;
-
+    private $hasAttachment = false;
     /**
-     * @var null|string
+     * @var TelegramAttachment
      */
-    private $video = null;
-
-    /**
-     * @var bool
-     */
-    private $isAnimation = false;
-
-    /**
-     * @var null|string
-     */
-    private $animation = null;
-
-    /**
-     * @var bool
-     */
-    private $isDocument = false;
-
-    /**
-     * @var TelegramDocument
-     */
-    private $document;
-
-    /**
-     * @var bool
-     */
-    private $isPhoto = false;
-
-    /**
-     * @var null|string
-     */
-    private $photo;
+    private $attachment;
 
     /**
      * @var bool
@@ -183,129 +152,33 @@ class TelegramRequest
     /**
      * @return bool
      */
-    public function isVideo(): bool
+    public function hasAttachment(): bool
     {
-        return $this->isVideo;
+        return $this->hasAttachment;
     }
 
     /**
-     * @param  bool  $isVideo
+     * @param  bool  $hasAttachment
      */
-    public function setIsVideo(bool $isVideo): void
+    public function setHasAttachment(bool $hasAttachment): void
     {
-        $this->isVideo = $isVideo;
+        $this->hasAttachment = $hasAttachment;
     }
 
     /**
-     * @return string|null
+     * @return TelegramAttachment
      */
-    public function getVideo(): ?string
+    public function getAttachment(): TelegramAttachment
     {
-        return $this->video;
+        return $this->attachment;
     }
 
     /**
-     * @param  string|null  $video
+     * @param  TelegramAttachment  $attachment
      */
-    public function setVideo(?string $video): void
+    public function setAttachment(TelegramAttachment $attachment): void
     {
-        $this->video = $video;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAnimation(): bool
-    {
-        return $this->isAnimation;
-    }
-
-    /**
-     * @param  bool  $isAnimation
-     */
-    public function setIsAnimation(bool $isAnimation): void
-    {
-        $this->isAnimation = $isAnimation;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAnimation(): ?string
-    {
-        return $this->animation;
-    }
-
-    /**
-     * @param  string|null  $animation
-     */
-    public function setAnimation(?string $animation): void
-    {
-        $this->animation = $animation;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDocument(): bool
-    {
-        return $this->isDocument;
-    }
-
-    /**
-     * @param  bool  $isDocument
-     */
-    public function setIsDocument(bool $isDocument): void
-    {
-        $this->isDocument = $isDocument;
-    }
-
-    /**
-     * @return TelegramDocument
-     */
-    public function getDocument(): TelegramDocument
-    {
-        return $this->document;
-    }
-
-    /**
-     * @param  TelegramDocument  $document
-     */
-    public function setDocument(TelegramDocument $document): void
-    {
-        $this->document = $document;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPhoto(): bool
-    {
-        return $this->isPhoto;
-    }
-
-    /**
-     * @param  bool  $isPhoto
-     */
-    public function setIsPhoto(bool $isPhoto): void
-    {
-        $this->isPhoto = $isPhoto;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param  string|null  $photo
-     */
-    public function setPhoto(?string $photo): void
-    {
-        $this->photo = $photo;
+        $this->attachment = $attachment;
     }
 
     /**

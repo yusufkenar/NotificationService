@@ -4,6 +4,7 @@ namespace App\Library\Notification\Providers;
 
 
 use App\Library\Notification\Facades\Notification;
+use App\Library\Notification\Services\Discord;
 use App\Library\Notification\Services\Slack;
 use App\Library\Notification\Services\Telegram;
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +25,7 @@ class NotificationServiceProvider extends ServiceProvider
 
     private function registerDiscord()
     {
-        Notification::register('telegram', new Telegram());
+        Notification::register('discord', new Discord());
     }
 
     private function registerSlack()
