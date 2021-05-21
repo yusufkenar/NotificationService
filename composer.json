@@ -44,5 +44,13 @@
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ]
-    }
+    },
+    "authors": [
+        {
+            "name": "Yusuf KENAR",
+            "email": "kenaryusuf@gmail.com",
+            "homepage": "https://www.yusufkenar.com",
+            "role": "Project Owner"
+        }
+    ]
 }
